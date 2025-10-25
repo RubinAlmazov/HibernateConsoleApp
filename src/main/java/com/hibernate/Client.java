@@ -3,6 +3,8 @@ package com.hibernate;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "clients")
@@ -10,19 +12,37 @@ public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    private int id;
 
     @Column(name = "name")
-    String name;
+    private String name;
 
     @Column(name = "email")
-    String email;
+    private String email;
 
     @Column(name = "registrationDate")
-    LocalDateTime registrationDate;
+    private LocalDateTime registrationDate;
 
-    @OneToOne(mappedBy = "client")
-    Profile profile;
+    @OneToOne(mappedBy = "client", cascade =
+            {CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REMOVE})
+    private Profile profile;
+
+
+    @OneToMany(mappedBy = "client", cascade =
+            {CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REMOVE})
+    private List<Order> orderList;
+
+    @ManyToMany
+    @JoinTable(
+            name = "client_coupons",
+            joinColumns = @JoinColumn(name = "client_id",referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "coupon_id", referencedColumnName = "id")
+    )
+    private List<Coupon> couponList = new ArrayList<>();
 
     public Client() {
     }
@@ -69,5 +89,21 @@ public class Client {
 
     public void setProfile(Profile profile) {
         this.profile = profile;
+    }
+
+    public List<Order> getOrders() {
+        return orderList;
+    }
+
+    public void setOrders(List<Order> orderList) {
+        this.orderList = orderList;
+    }
+
+    public List<Coupon> getCouponList() {
+        return couponList;
+    }
+
+    public void setCouponList(List<Coupon> couponList) {
+        this.couponList = couponList;
     }
 }

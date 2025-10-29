@@ -1,4 +1,3 @@
-//TODO: add scanner.nextLine(); after scanner.nextInt(). Change persist to merge in services, if needed
 
 package com.hibernate;
 

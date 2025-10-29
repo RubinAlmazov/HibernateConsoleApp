@@ -1,6 +1,5 @@
 package com.hibernate;
 
-import com.hibernate.services.ClientService;
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

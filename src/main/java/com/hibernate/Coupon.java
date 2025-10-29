@@ -18,14 +18,17 @@ public class Coupon {
     @Column(name = "discount")
     private int discount;
 
-    @ManyToMany(mappedBy = "couponList")
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "client_coupons",
+            joinColumns = @JoinColumn(name = "coupon_id"),
+            inverseJoinColumns = @JoinColumn(name = "client_id"))
     List<Client> clientList;
 
     public Coupon() {
     }
 
-    public Coupon(int id, String code, int discount, List<Client> clientList) {
-        this.id = id;
+    public Coupon(String code, int discount, List<Client> clientList) {
         this.code = code;
         this.discount = discount;
         this.clientList = clientList;

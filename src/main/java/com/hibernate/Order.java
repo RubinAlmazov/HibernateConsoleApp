@@ -18,18 +18,18 @@ public class Order {
     @Column(name = "totalAmount")
     private int totalAmount;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private OrderStatus status;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
     Client client;
 
     public Order() {
     }
 
-    public Order(int id, LocalDate orderDate, int totalAmount, OrderStatus status, Client client) {
-        this.id = id;
+    public Order(LocalDate orderDate, int totalAmount, OrderStatus status, Client client) {
         this.orderDate = orderDate;
         this.totalAmount = totalAmount;
         this.status = status;

@@ -16,7 +16,7 @@ public class Profile {
     @Column(name = "phone")
     String phone;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     Client client;
 

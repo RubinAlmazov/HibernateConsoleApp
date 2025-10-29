@@ -1,6 +1,8 @@
 package com.hibernate;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,25 +25,16 @@ public class Client {
     @Column(name = "registrationDate")
     private LocalDateTime registrationDate;
 
-    @OneToOne(mappedBy = "client", cascade =
-            {CascadeType.MERGE,
-                    CascadeType.PERSIST,
-                    CascadeType.REMOVE})
+    @OneToOne(mappedBy = "client")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Profile profile;
 
 
-    @OneToMany(mappedBy = "client", cascade =
-            {CascadeType.MERGE,
-                    CascadeType.PERSIST,
-                    CascadeType.REMOVE})
+    @OneToMany(mappedBy = "client")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Order> orderList;
 
-    @ManyToMany
-    @JoinTable(
-            name = "client_coupons",
-            joinColumns = @JoinColumn(name = "client_id",referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "coupon_id", referencedColumnName = "id")
-    )
+    @ManyToMany(mappedBy = "clientList",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Coupon> couponList = new ArrayList<>();
 
     public Client() {

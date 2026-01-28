@@ -29,16 +29,19 @@ This repository contains a console-based Java application designed to manage cus
 ---
 
 ## Technologies
-- Java (JDK 8 or higher recommended)
-- Maven (3.6 or higher) for build management.
-- Hibernate.
+- **Java** 17 
+- **Maven** 3.6+
+- **Hibernate** 7.1.4
+- **Spring Framework** 7.0
+- **PostgreSQL** 
 
 ---
 
 ## Prerequisites
-- JDK 8 or higher installed (e.g., OpenJDK or Oracle JDK).
-- Git for cloning the repository (optional, if hosting on GitHub).
-- Maven
+- JDK 17+
+- Maven 3.6+
+- Git 
+- PostgreSQL 13+ 
 ---
 
 ## Installation
